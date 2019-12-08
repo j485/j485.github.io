@@ -6,7 +6,7 @@ $.ajax({
     beforeSend: function(xhr) {
          xhr.setRequestHeader("Accept", "application/json")
          xhr.setRequestHeader("Content-Type", "application/json")
-         xhr.setRequestHeader("Authorization", "Bearer BQClAhg3iDdTLROEQ2Z9KLSQDLwrYiiTjwr6-QdVCgf00tF7I22PG4dRAi-Cqoni0EYt5yG-YFcG-ZhsZVd12-uzKTFFLpp0tXrDKRnN_BBe228WXq2zWq5-EsQpHZYYao7uzLpdjud0-GeDdQNzFE0")
+         xhr.setRequestHeader("Authorization", "Bearer BQDdLwHEOFdY8qcNcO39BnNApoC2Z9oVOddLiuiNxBv9cSjnQosk4kaECXuwaU-LsW8fOW-PpAfWtXZkHmhOXaeHW9BXLN7v4aHw-nLYd2aiWX4JVu66ihTtyFPE3zaBCSS3Deo6UakZ5U7djxrMpf8")
     }, success: function(data){
         var playlistInfo = [];
         let trackList = [];
@@ -43,7 +43,7 @@ $.ajax({
         trackList.forEach( track => {
             buildInfo(titleId, track.trackName)
             buildInfo(artistId, track.artist)
-            
+
         })
 
         console.log("Track list: ", trackList)
