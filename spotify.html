@@ -1,0 +1,172 @@
+Hello
+
+<br>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="NewSongEmojiList.js"></script>
+
+<script>
+/*
+alert(emojilist["Artist Name"].length);
+function linearSearch(arr, elToFind){
+    for (var i=0; i < arr.length; i++){
+        document.write(arr[i]);
+        if (arr[i] == elToFind){
+            return i;
+        }
+    } return null;
+}
+
+linearSearch(emojilist["Artist Name"], "Harry Belafonte");
+*/
+
+//Author @killants
+//search through json object for value path
+const charSeparator = "/"
+/**
+ * searches deep into an object recursively...
+ * @param {Object} obj object to be searched
+ * @param {any} searchValue the value/key to search for
+ * @param {boolean} [valuesOnly=false] whether to skip comparing object keys
+ * @param {number} [maxDepth=20] maximum recursion depth (to avoid "Maximum call stack size exceeded")
+ * @returns {string[]} Paths on the object to the matching results
+ */
+function getValuePathInObject(
+  obj,
+  searchValue,
+  valuesOnly = false,
+  maxDepth = 20
+) {
+  if (!maxDepth) return []
+
+  const paths = []
+
+  for (const [curr, currElem] of Object.entries(obj)) {
+
+    if (!valuesOnly && curr === searchValue) {
+      // To search for property name too...
+      paths.push(curr)
+    }
+
+    if (typeof currElem == "object") {
+      // object is "object" and "array" is also in the eyes of `typeof`
+      // search again :D
+      const deepPaths = getValuePathInObject(
+        currElem,
+        searchValue,
+        valuesOnly,
+        maxDepth - 1
+      )
+      const currDir = curr + charSeparator
+      for (const path of deepPaths) {
+        paths.push(currDir + path)
+      }
+      continue
+    }
+    // it's something else... probably the value we are looking for
+    // compares with `searchValue`
+    if (currElem === searchValue) {
+      // return index AND/OR property name
+      paths.push(curr)
+    }
+  }
+  return paths
+}
+
+//get valuepath for a songId
+str = (getValuePathInObject(emojilist, "spotify:track:7uOc6iwZXwxQgo5wTysPlq"));
+//valuepath function returns an object, however each item in the object is a string, 
+//acessing the first element and splitting by / gives us the name of the subsection being searched and the number of the found object
+//accessing the second element of that list gives us the number only, which we can then use in search to bring up emoji songname pairs
+jsonId = str[0].split("/")[1];
+document.write(emojilist["Artist Name"][jsonId]);
+document.write(emojilist["Emoji"][jsonId]);
+document.write(emojilist["Track Uri"][jsonId]);
+
+/*
+//verify and go to webpage
+let clientId = 'b05ef1cf5f9f4f1c8b0a90e8f9f0dcd0'
+const Http = new XMLHttpRequest();
+const url='https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&redirect_uri=https%3A%2F%2Fexample.com%2Fcallback&scope=user-read-private%20user-read-email&state=123';
+const accessToken = 'BQAuLdnX1xLHBd7hv6Vn6UG0UNO1YgGmNIuLKGc-7G8CPPHQlNNgTagkpITMiQGaZqRo8LOJpbnqC4uPigckElw5W3vZmXHMnJUmhea5vxua8KX0EOw4lscEszdPk4pFPSIjUoklcCpYGV9iv1KTa58'
+Http.open("GET", url);
+Http.send();
+Http.responseText
+Http.onreadystatechange = (e) => {
+  window.open(url, '_blank')
+}
+*/
+
+//liked songs
+/*
+$.ajax({
+        url: "https://api.spotify.com/v1/me/tracks",
+        beforeSend: function(xhr) {
+        	 xhr.setRequestHeader("Accept", "application/json")
+             xhr.setRequestHeader("Content-Type", "application/json")
+             xhr.setRequestHeader("Authorization", "Bearer BQAuLdnX1xLHBd7hv6Vn6UG0UNO1YgGmNIuLKGc-7G8CPPHQlNNgTagkpITMiQGaZqRo8LOJpbnqC4uPigckElw5W3vZmXHMnJUmhea5vxua8KX0EOw4lscEszdPk4pFPSIjUoklcCpYGV9iv1KTa58")
+        }, success: function(data){
+        	for (const i in data.items){
+            	document.write(data.items[i].track.album.artists[0].name);
+            	document.write(data.items[i].track.album.artists[0].id);
+            	document.write(data.items[i].track.album.artists[0].external_urls.spotify);
+                document.write(data.items[i].track.name);
+                document.write(data.items[i].track.uri);
+            //process the JSON data etc
+        	}
+        }
+})
+*/
+
+//playlist
+//searches through playlist with get request
+//creates a list of lists
+//top level is a list of songs
+//each song is a list of the artist name, track name, and track uri
+$.ajax({
+        url: "https://api.spotify.com/v1/playlists/2fc01PXOTtx6qBKYLRL1zb",
+        beforeSend: function(xhr) {
+        	 xhr.setRequestHeader("Accept", "application/json")
+             xhr.setRequestHeader("Content-Type", "application/json")
+             xhr.setRequestHeader("Authorization", "Bearer BQBLyqUOSU9n9lFcNfRo-v9fNqAL5xVYlp6KU9Dr-s4opPCig8he6puw_2KPgqJV1AVW9a-3FKc59fzHpFRjNwbV1xt-4uAqYQO00TnEu5bUqYZosJV_UgfoYQ4GPZYQ1jd3cXDcyD-49Cgby7tRek4")
+        }, success: function(data){
+            var playlistInfo = [];
+        	for (const i in data.tracks.items){
+                trackInfo = [];
+            	trackInfo.push(data.tracks.items[i].track.album.artists[0].name);
+                trackInfo.push(data.tracks.items[i].track.name);
+                trackInfo.push(data.tracks.items[i].track.uri);
+                str = (getValuePathInObject(emojilist, data.tracks.items[i].track.uri));
+                jsonId = str[0].split("/")[1];
+                document.write(emojilist["Emoji"][jsonId]);
+                trackInfo.push(emojilist["Emoji"][jsonId]);
+                playlistInfo.push(trackInfo);
+            //process the JSON data etc
+        	}
+            document.write(playlistInfo);
+        }
+})
+
+
+</script>
+
+
+
+<!--<div id="page_one">
+    page one
+</div>
+
+<div id="page_two">
+    page two
+</div>
+
+<script>
+$(document).ready(function(){
+   init();
+});
+function init(){
+    $("#page_one").hide();
+    $("#page_two").show();
+}
+</script>
+-->

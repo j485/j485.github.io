@@ -164,3 +164,8 @@ button span:before, button span:after
     width: 40px;
     background-color: #fff;
 }
+
+.face{
+    width:100%;
+    text-align:center;
+}

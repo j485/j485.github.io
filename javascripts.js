@@ -1,11 +1,10 @@
-var x = document.getElementById("myAudio");
-
-function playAudio() {
-  x.play();
-  console.log("musicplay");
+function PlaySound(soundobj) {
+    var thissound=document.getElementById(soundobj);
+    thissound.play();
 }
 
-function pauseAudio() {
-  x.pause();
-  console.log("musicpause");
+function StopSound(soundobj) {
+    var thissound=document.getElementById(soundobj);
+    thissound.pause();
+    thissound.currentTime = 0;
 }
