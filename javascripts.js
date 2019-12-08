@@ -10,9 +10,8 @@ function StopSound(soundobj) {
 }
 
 function share(){
-    var copytext = document.getElementById("myInput");
-
-    copytext.Select();
-
+    var str1 = "http://open.spotify.com/track/";
+    var str2 = data.tracks.items[i].track.uri;
+    var url = str1.concat(str2);
     document.execCommand("copy");
 }

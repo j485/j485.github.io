@@ -43,6 +43,7 @@ $.ajax({
         trackList.forEach( track => {
             buildInfo(titleId, track.trackName)
             buildInfo(artistId, track.artist)
+            
         })
 
         console.log("Track list: ", trackList)
@@ -81,7 +82,7 @@ $.ajax({
 		<!--<link rel="stylesheet" type="text/css" href="/static/css/component.css" />-->
     </head>
     <body style="background-color:#FFC83D;">
-        <div style="margin:30px 0px;padding:30px 30px;width:50%;height:92%;background-color:white; position:absolute;right:50%;transform:translate(50%, 0%);">
+        <div style="margin:0px 0px;padding:30px 30px;width:50%;height:150%;background-color:white; position:absolute;right:50%;transform:translate(50%, 0%);">
             <img src="/logo_h.png" alt="logo" style="width:10%;position:absolute;right:50%;transform:translate(50%,0%);">
             <div style="text-align:center;margin-top:20%;">
                 <div class="row" style="color:#FFC83D;text-align:center;">
