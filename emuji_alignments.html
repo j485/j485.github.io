@@ -6,14 +6,22 @@ $.ajax({
     beforeSend: function(xhr) {
          xhr.setRequestHeader("Accept", "application/json")
          xhr.setRequestHeader("Content-Type", "application/json")
-         xhr.setRequestHeader("Authorization", "Bearer BQAR9YW97uEsLmuR3PFGHsT3kAc49ZVMdMLTOHchVJwr_Z-M2rqEMXF90G5JO14jPZeF-kI93aRAZswP-aC3azxKqxcgD5ZSNt3UtRhBviuFU_ccAqNilmCGpGhY21006BXhKc5D4AtituX5OMzFRUc")
+         xhr.setRequestHeader("Authorization", "Bearer BQClAhg3iDdTLROEQ2Z9KLSQDLwrYiiTjwr6-QdVCgf00tF7I22PG4dRAi-Cqoni0EYt5yG-YFcG-ZhsZVd12-uzKTFFLpp0tXrDKRnN_BBe228WXq2zWq5-EsQpHZYYao7uzLpdjud0-GeDdQNzFE0")
     }, success: function(data){
         var playlistInfo = [];
+        let trackList = [];
         for (const i in data.tracks.items){
             trackInfo = [];
             trackInfo.push(data.tracks.items[i].track.album.artists[0].name);
             trackInfo.push(data.tracks.items[i].track.name);
             trackInfo.push(data.tracks.items[i].track.uri);
+             const track = {
+                 artist: data.tracks.items[i].track.album.artists[0].name,
+                 trackName: data.tracks.items[i].track.name,
+                 uri: data.tracks.items[i].track.uri
+             }
+             trackList.push(track);
+
             //str = (getValuePathInObject(emojilist, data.tracks.items[i].track.uri));
             //jsonId = str[0].split("/")[1];
             // document.write(emojilist["Emoji"][jsonId]);
@@ -21,7 +29,24 @@ $.ajax({
             playlistInfo.push(trackInfo);
         //process the JSON data etc
         }
-        document.getElementById('play1').innerHTML = playlistInfo[0][0];
+        const titleId = document.getElementById('title')
+        const artistId = document.getElementById('artist')
+        
+        const buildInfo = (parent, info) => {
+            const t = document.createElement("p")
+            t.style.margin = '20px 2px'
+            t.appendChild(document.createTextNode(info))
+            //console.log("Track: ", track)
+            parent.appendChild(t)
+        }
+        
+        trackList.forEach( track => {
+            buildInfo(titleId, track.trackName)
+            buildInfo(artistId, track.artist)
+        })
+
+        console.log("Track list: ", trackList)
+        //document.getElementById('play1').innerHTML = playlistInfo[0][0];
     }
 })
 </script>
@@ -72,23 +97,11 @@ $.ajax({
                         <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
                         <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
                     </div>
-                    <div class="col-4">
+                    <div id="title" class="col-4">
                         <p style="color:black">Title</p>
-                        <p style="margin:20px 2px;" id="play1">x</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
                     </div>
-                    <div class="col-4">
+                    <div id="artist" class="col-4">
                         <p style="color:black">Artist</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
                     </div>
                     <div class="col-2">
                         <p style="color:black">Share</p>
