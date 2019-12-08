@@ -10,20 +10,22 @@ $.ajax({
     }, success: function(data){
         var playlistInfo = [];
         let trackList = [];
-        const count = 0;
+        let count = 0;
         for (const i in data.tracks.items){
              const track = {
+                 emoji: 128512 + count,
                  artist: data.tracks.items[i].track.album.artists[0].name,
                  trackName: data.tracks.items[i].track.name,
                  uri: data.tracks.items[i].track.uri
              }
              trackList.push(track);
-             //count++;
-             //if(count)
+             count++;
+             if(count == 20) break; 
         }
         const emojiId = document.getElementById('emoji')
         const titleId = document.getElementById('title')
         const artistId = document.getElementById('artist')
+        const shareId = document.getElementById('share')
         
         const buildParagraph = (parent, info) => {
             const t = document.createElement("p")
@@ -32,14 +34,22 @@ $.ajax({
             //console.log("Track: ", track)
             parent.appendChild(t)
         }
-        const buildEmoji = (parent, info) => {
+        const buildEmoji = (parent, info, emoji) => {
             const div = document.createElement("div")
             const button = document.createElement("button")
             button.setAttribute('class', 'btn btn-light')
             button.style.margin = 'margin:2px 2px'
-            button.innerHTML= '&#x1F600;'
+            button.innerHTML= String.fromCodePoint(emoji)
             div.appendChild(button)
             parent.appendChild(div)
+        }
+        const buildShareButton = (parent, info) => {
+            const button = document.createElement("button")
+            button.setAttribute('class', 'btn btn-warning')
+            button.style.margin = 'margin:1px 1px'
+            button.innerHTML= 'Share'
+            parent.appendChild(button)
+            //<button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
         }
 
         const truncateText = (text) => {
@@ -50,7 +60,8 @@ $.ajax({
         trackList.forEach( track => {
             buildParagraph(titleId, truncateText(track.trackName))
             buildParagraph(artistId, truncateText(track.artist))
-            buildEmoji(emojiId, track.uri)
+            buildEmoji(emojiId, track.uri, track.emoji)
+            buildShareButton(shareId, track.uri)
         })
 
         console.log("Track list: ", trackList)
@@ -111,14 +122,8 @@ $.ajax({
                     <div id="artist" class="col-4">
                         <p style="color:black">Artist</p>
                     </div>
-                    <div class="col-2">
+                    <div id="share" class="col-2">
                         <p style="color:black">Share</p>
-                        <button type="button" class="btn btn-warning" style="margin:2px 2px;" onclick="share()">Share</button>
-                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
-                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
-                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
-                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
-                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
                     </div>
                 </div>
             </div>
