@@ -8,3 +8,11 @@ function StopSound(soundobj) {
     thissound.pause();
     thissound.currentTime = 0;
 }
+
+function share(){
+    var copytext = document.getElementById("myInput");
+
+    copytext.Select();
+
+    document.execCommand("copy");
+}
