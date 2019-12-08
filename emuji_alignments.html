@@ -6,7 +6,7 @@ $.ajax({
     beforeSend: function(xhr) {
          xhr.setRequestHeader("Accept", "application/json")
          xhr.setRequestHeader("Content-Type", "application/json")
-         xhr.setRequestHeader("Authorization", "Bearer BQDdLwHEOFdY8qcNcO39BnNApoC2Z9oVOddLiuiNxBv9cSjnQosk4kaECXuwaU-LsW8fOW-PpAfWtXZkHmhOXaeHW9BXLN7v4aHw-nLYd2aiWX4JVu66ihTtyFPE3zaBCSS3Deo6UakZ5U7djxrMpf8")
+         xhr.setRequestHeader("Authorization", "Bearer BQCaaDwid0AfxolyiFvgduRcwgUUsGSKFD57GKCl7AkMDxz8YsrGxT2W3A63WRl0Td52WUPklAqYbUqymn7cRFi00lYgNG_F_6k-6LL8W42SnoVwMAfhZs2hiOZTRrmNtFmTCQ9GUfCyTvFOSiAWzUE")
     }, success: function(data){
         var playlistInfo = [];
         let trackList = [];
@@ -44,11 +44,13 @@ $.ajax({
             parent.appendChild(div)
         }
         const buildShareButton = (parent, info) => {
+            const div = document.createElement("div")
             const button = document.createElement("button")
             button.setAttribute('class', 'btn btn-warning')
             button.style.margin = 'margin:1px 1px'
             button.innerHTML= 'Share'
-            parent.appendChild(button)
+            div.appendChild(button)
+            parent.appendChild(div)
             //<button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
         }
 
@@ -61,7 +63,7 @@ $.ajax({
             buildParagraph(titleId, truncateText(track.trackName))
             buildParagraph(artistId, truncateText(track.artist))
             buildEmoji(emojiId, track.uri, track.emoji)
-            buildShareButton(shareId, track.uri)
+            //buildShareButton(shareId, track.uri)
         })
 
         console.log("Track list: ", trackList)
@@ -124,6 +126,26 @@ $.ajax({
                     </div>
                     <div id="share" class="col-2">
                         <p style="color:black">Share</p>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
+                        <button type="button" class="btn btn-warning" style="margin:2px 2px;">Share</button>
                     </div>
                 </div>
             </div>
