@@ -1,5 +1,30 @@
 <!DOCTYPE html>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$.ajax({
+    url: "https://api.spotify.com/v1/playlists/2fc01PXOTtx6qBKYLRL1zb",
+    beforeSend: function(xhr) {
+         xhr.setRequestHeader("Accept", "application/json")
+         xhr.setRequestHeader("Content-Type", "application/json")
+         xhr.setRequestHeader("Authorization", "Bearer BQAR9YW97uEsLmuR3PFGHsT3kAc49ZVMdMLTOHchVJwr_Z-M2rqEMXF90G5JO14jPZeF-kI93aRAZswP-aC3azxKqxcgD5ZSNt3UtRhBviuFU_ccAqNilmCGpGhY21006BXhKc5D4AtituX5OMzFRUc")
+    }, success: function(data){
+        var playlistInfo = [];
+        for (const i in data.tracks.items){
+            trackInfo = [];
+            trackInfo.push(data.tracks.items[i].track.album.artists[0].name);
+            trackInfo.push(data.tracks.items[i].track.name);
+            trackInfo.push(data.tracks.items[i].track.uri);
+            //str = (getValuePathInObject(emojilist, data.tracks.items[i].track.uri));
+            //jsonId = str[0].split("/")[1];
+            // document.write(emojilist["Emoji"][jsonId]);
+            // trackInfo.push(emojilist["Emoji"][jsonId]);
+            playlistInfo.push(trackInfo);
+        //process the JSON data etc
+        }
+        document.getElementById('play1').innerHTML = playlistInfo[0][0];
+    }
+})
+</script>
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -49,7 +74,7 @@
                     </div>
                     <div class="col-4">
                         <p style="color:black">Title</p>
-                        <p style="margin:20px 2px;">XXXXXXXXXX</p>
+                        <p style="margin:20px 2px;" id="play1">x</p>
                         <p style="margin:20px 2px;">XXXXXXXXXX</p>
                         <p style="margin:20px 2px;">XXXXXXXXXX</p>
                         <p style="margin:20px 2px;">XXXXXXXXXX</p>

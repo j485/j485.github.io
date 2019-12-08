@@ -138,8 +138,8 @@ $.ajax({
                 trackInfo.push(data.tracks.items[i].track.uri);
                 str = (getValuePathInObject(emojilist, data.tracks.items[i].track.uri));
                 jsonId = str[0].split("/")[1];
-                document.write(emojilist["Emoji"][jsonId]);
-                trackInfo.push(emojilist["Emoji"][jsonId]);
+                // document.write(emojilist["Emoji"][jsonId]);
+                // trackInfo.push(emojilist["Emoji"][jsonId]);
                 playlistInfo.push(trackInfo);
             //process the JSON data etc
         	}
