@@ -10,40 +10,47 @@ $.ajax({
     }, success: function(data){
         var playlistInfo = [];
         let trackList = [];
+        const count = 0;
         for (const i in data.tracks.items){
-            trackInfo = [];
-            trackInfo.push(data.tracks.items[i].track.album.artists[0].name);
-            trackInfo.push(data.tracks.items[i].track.name);
-            trackInfo.push(data.tracks.items[i].track.uri);
              const track = {
                  artist: data.tracks.items[i].track.album.artists[0].name,
                  trackName: data.tracks.items[i].track.name,
                  uri: data.tracks.items[i].track.uri
              }
              trackList.push(track);
-
-            //str = (getValuePathInObject(emojilist, data.tracks.items[i].track.uri));
-            //jsonId = str[0].split("/")[1];
-            // document.write(emojilist["Emoji"][jsonId]);
-            // trackInfo.push(emojilist["Emoji"][jsonId]);
-            playlistInfo.push(trackInfo);
-        //process the JSON data etc
+             //count++;
+             //if(count)
         }
+        const emojiId = document.getElementById('emoji')
         const titleId = document.getElementById('title')
         const artistId = document.getElementById('artist')
         
-        const buildInfo = (parent, info) => {
+        const buildParagraph = (parent, info) => {
             const t = document.createElement("p")
             t.style.margin = '20px 2px'
             t.appendChild(document.createTextNode(info))
             //console.log("Track: ", track)
             parent.appendChild(t)
         }
+        const buildEmoji = (parent, info) => {
+            const div = document.createElement("div")
+            const button = document.createElement("button")
+            button.setAttribute('class', 'btn btn-light')
+            button.style.margin = 'margin:2px 2px'
+            button.innerHTML= '&#x1F600;'
+            div.appendChild(button)
+            parent.appendChild(div)
+        }
+
+        const truncateText = (text) => {
+            console.log('++++++ text: ', text)
+            return (text.length > 16) ? (text.slice(0, 13) + '...') : text
+        }
         
         trackList.forEach( track => {
-            buildInfo(titleId, track.trackName)
-            buildInfo(artistId, track.artist)
-
+            buildParagraph(titleId, truncateText(track.trackName))
+            buildParagraph(artistId, truncateText(track.artist))
+            buildEmoji(emojiId, track.uri)
         })
 
         console.log("Track list: ", trackList)
@@ -86,17 +93,17 @@ $.ajax({
             <img src="/logo_h.png" alt="logo" style="width:10%;position:absolute;right:50%;transform:translate(50%,0%);">
             <div style="text-align:center;margin-top:20%;">
                 <div class="row" style="color:#FFC83D;text-align:center;">
-                    <div class="col-2">
+                    <div id="emoji" class="col-2">
                         <p style="color:black">Emoji</p>
                         <div>
                             <button onmouseover="PlaySound('mySound')" onmouseout="StopSound('mySound')" type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button>
                         </div>
                         <audio id='mySound' src='test.mp3'></audio>
+                        <!-- <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
                         <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
                         <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
                         <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
-                        <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
-                        <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div>
+                        <div><button type="button" class="btn btn-light" style="margin:2px 2px;">&#x1F600;</button></div> -->
                     </div>
                     <div id="title" class="col-4">
                         <p style="color:black">Title</p>
