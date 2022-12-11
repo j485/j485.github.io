@@ -19,7 +19,7 @@
   "dependencies": {
     "@google-cloud/logging-winston": "^3.0.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "knex": "^0.20.0",
     "pg": "^7.11.0",
     "pug": "^2.0.3",
